@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a7af61ec-0608-4479-a658-4c2ab949ff02">
+	<property name="ireport.zoom" value="1.610510000000001"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="FECHA1" class="java.util.Date"/>
+	<parameter name="FECHA2" class="java.util.Date"/>
+	<parameter name="SALDO" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     TPagos."CodPago" AS TPagos_CodPago,
+     TPagos."IdCliente" AS TPagos_IdCliente,
+     TPagos."Cedula" AS TPagos_Cedula,
+     TPagos."NombreCliente" AS TPagos_NombreCliente,
+     TPagos."FechaUltPago" AS TPagos_FechaUltPago,
+     TPagos."Total" AS TPagos_Total,
+     TPagos."Abono" AS TPagos_Abono,
+     TPagos."Saldo" AS TPagos_Saldo
+FROM
+     "dbo"."TPagos" TPagos
+WHERE 
+    FechaUltPago>=$P{FECHA1}
+AND 
+    FechaUltPago<=$P{FECHA2}]]>
+	</queryString>
+	<field name="TPagos_CodPago" class="java.lang.Integer"/>
+	<field name="TPagos_IdCliente" class="java.lang.Integer"/>
+	<field name="TPagos_Cedula" class="java.lang.String"/>
+	<field name="TPagos_NombreCliente" class="java.lang.String"/>
+	<field name="TPagos_FechaUltPago" class="java.sql.Date"/>
+	<field name="TPagos_Total" class="java.lang.String"/>
+	<field name="TPagos_Abono" class="java.lang.String"/>
+	<field name="TPagos_Saldo" class="java.lang.String"/>
+	<variable name="TPagos_Saldo_1" class="java.lang.Integer" resetType="Column" calculation="Count">
+		<variableExpression><![CDATA[$F{TPagos_Saldo}]]></variableExpression>
+	</variable>
+	<variable name="TPagos_Saldo_2" class="java.lang.Integer" resetType="Column" calculation="DistinctCount">
+		<variableExpression><![CDATA[$F{TPagos_Saldo}]]></variableExpression>
+	</variable>
+	<group name="TPagos_FechaUltPago">
+		<groupExpression><![CDATA[$F{TPagos_FechaUltPago}]]></groupExpression>
+		<groupHeader>
+			<band height="21">
+				<staticText>
+					<reportElement style="Column header" x="66" y="4" width="71" height="15" uuid="25634d10-52ab-40e5-aa56-0e72bcadfce9"/>
+					<textElement>
+						<font isBold="true" isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Cedula]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="172" y="4" width="102" height="15" uuid="204430c0-137d-4482-ac9a-edeb2c99e5b0"/>
+					<textElement>
+						<font isBold="true" isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Cliente]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="315" y="5" width="79" height="15" uuid="65e51489-8e97-476a-bd55-ea0c364ebd62"/>
+					<textElement textAlignment="Center">
+						<font isBold="true" isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Total]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="403" y="4" width="79" height="15" uuid="713f769c-5755-403f-b13a-96a894a22511"/>
+					<textElement textAlignment="Center">
+						<font isBold="true" isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Abono]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="482" y="4" width="79" height="15" uuid="166909b7-caa0-4486-892e-78a255a3d24e"/>
+					<textElement textAlignment="Center">
+						<font isBold="true" isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Saldo]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="1" y="4" width="57" height="15" uuid="f144073f-3c9d-468d-b8c5-888079db4f34"/>
+					<textElement>
+						<font isBold="true" isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Fecha]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="44">
+				<textField>
+					<reportElement x="176" y="18" width="100" height="20" uuid="53a086f1-1146-4fbe-b2b8-25fea53eb1cd"/>
+					<textElement>
+						<font size="1"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{FECHA1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="329" y="24" width="100" height="20" uuid="136b31fd-b0c3-4132-b7a8-56cba0f3621e"/>
+					<textElement>
+						<font size="1"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{FECHA2}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<rectangle>
+				<reportElement x="1" y="0" width="552" height="65" backcolor="#00CC33" uuid="a008bfb2-ba18-42b1-b31b-0d6ca3da6ca9"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="66" y="15" width="487" height="32" uuid="689c0c38-a59b-4b94-aa98-4565c0d82b87"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="24"/>
+				</textElement>
+				<text><![CDATA[Reporte de Cuentas por Cobrar por Fechas]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1" uuid="10b0a103-efcd-4c88-bc15-1ab70887db15"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="64" y="17" width="197" height="17" uuid="d22f7e57-a9e6-497e-86c7-9d0ecb301012"/>
+				<textElement>
+					<font size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="23" y="16" width="40" height="20" uuid="d097781c-b84e-4daa-ad0e-3da7c1dfe218"/>
+				<textElement textAlignment="Right">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="7d003d8b-d307-4e52-b562-9d10a8c8fc30"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement style="Detail" x="63" y="1" width="74" height="15" uuid="a446eb51-8f68-4f4e-b3fd-03311ceabd73"/>
+				<textFieldExpression><![CDATA[$F{TPagos_Cedula}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="137" y="0" width="168" height="15" uuid="878681f6-f4ca-44c4-a213-d62b832fa6d5"/>
+				<textFieldExpression><![CDATA[$F{TPagos_NombreCliente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="305" y="1" width="79" height="15" uuid="30b02152-5cff-4313-ae2d-d139421a8a6d"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{TPagos_Total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="395" y="0" width="79" height="15" uuid="8d7c9416-243f-49db-a07f-968ad56ba0e0"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{TPagos_Abono}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="474" y="0" width="79" height="15" uuid="7b7a75bc-4a41-4a5d-8094-1c704cd2f53d"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{TPagos_Saldo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="SubTitle" x="0" y="0" width="58" height="15" forecolor="#333333" uuid="2c66eb61-02e1-49bf-93b9-0a15a10395fb"/>
+				<textElement>
+					<font size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TPagos_FechaUltPago}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="cd2d09db-5ebc-4ea9-8b4b-380fd85a5a61"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="178" y="4" width="377" height="30" uuid="25f1da4c-6bb3-48c4-a395-13cc6c9c5e35"/>
+				<textElement>
+					<font size="20"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Total Cuentas por Cobrar: "+$P{SALDO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="1d589190-bff4-4398-b4dd-56d39b3443ae"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="5d493620-d83a-4258-8696-e4b00ff26584"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

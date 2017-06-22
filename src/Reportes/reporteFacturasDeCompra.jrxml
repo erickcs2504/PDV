@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8b453020-c8e2-4566-906a-5d772048ce99">
+	<property name="template.type" value="columnar"/>
+	<property name="ireport.zoom" value="1.4641000000000017"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="6"/>
+	<style name="Title" forecolor="#000000" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="FECHA1" class="java.lang.String"/>
+	<parameter name="FECHA2" class="java.lang.String"/>
+	<parameter name="TOTAL" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     TCompras."IdCompra" AS TCompras_IdCompra,
+     TCompras."CodigoProducto" AS TCompras_CodigoProducto,
+     TCompras."NombreProducto" AS TCompras_NombreProducto,
+     TCompras."CantidadActual" AS TCompras_CantidadActual,
+     TCompras."AgregarCantidad" AS TCompras_AgregarCantidad,
+     TCompras."CantidadTotal" AS TCompras_CantidadTotal,
+     TCompras."PrecioCompra" AS TCompras_PrecioCompra,
+     TCompras."PrecioVenta" AS TCompras_PrecioVenta,
+     TCompras."SubTotal" AS TCompras_SubTotal,
+     TCompras."Total" AS TCompras_Total,
+     TCompras."Proveedor" AS TCompras_Proveedor,
+     TCompras."FechaCompra" AS TCompras_FechaCompra,
+     TCompras."TipoCompra" AS TCompras_TipoCompra,
+     TCompras."numfactura" AS TCompras_numfactura
+FROM
+     "dbo"."TCompras" TCompras
+WHERE
+      FechaCompra>=$P{FECHA1}
+AND
+      FechaCompra<=$P{FECHA2}]]>
+	</queryString>
+	<field name="TCompras_IdCompra" class="java.lang.Integer"/>
+	<field name="TCompras_CodigoProducto" class="java.lang.String"/>
+	<field name="TCompras_NombreProducto" class="java.lang.String"/>
+	<field name="TCompras_CantidadActual" class="java.lang.Integer"/>
+	<field name="TCompras_AgregarCantidad" class="java.lang.Integer"/>
+	<field name="TCompras_CantidadTotal" class="java.lang.Integer"/>
+	<field name="TCompras_PrecioCompra" class="java.lang.String"/>
+	<field name="TCompras_PrecioVenta" class="java.lang.String"/>
+	<field name="TCompras_SubTotal" class="java.lang.String"/>
+	<field name="TCompras_Total" class="java.lang.String"/>
+	<field name="TCompras_Proveedor" class="java.lang.String"/>
+	<field name="TCompras_FechaCompra" class="java.sql.Date"/>
+	<field name="TCompras_TipoCompra" class="java.lang.String"/>
+	<field name="TCompras_numfactura" class="java.lang.String"/>
+	<group name="TCompras_numfactura">
+		<groupExpression><![CDATA[$F{TCompras_numfactura}]]></groupExpression>
+		<groupHeader>
+			<band height="79">
+				<frame>
+					<reportElement mode="Opaque" x="0" y="7" width="555" height="64" forecolor="#B89F7D" backcolor="#9DB1B8" uuid="b3b80a2a-aac9-48cb-b248-8bf69f24ac15"/>
+					<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+						<reportElement style="SubTitle" isPrintRepeatedValues="false" x="2" y="1" width="479" height="23" forecolor="#FFFFFF" uuid="c477a54d-baff-42e2-8ede-052192944146"/>
+						<textElement>
+							<font isBold="false"/>
+						</textElement>
+						<textFieldExpression><![CDATA["No.Factura:  "+$F{TCompras_numfactura}]]></textFieldExpression>
+					</textField>
+					<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+						<reportElement style="Detail" positionType="Float" x="343" y="3" width="210" height="18" uuid="da512b04-7d2a-4d4d-81fe-7f99355b1cdb"/>
+						<textElement>
+							<font size="14" isBold="true" pdfFontName="Times-Bold"/>
+						</textElement>
+						<textFieldExpression><![CDATA["Fecha Compra:  "+$F{TCompras_FechaCompra}]]></textFieldExpression>
+					</textField>
+				</frame>
+				<staticText>
+					<reportElement style="Column header" positionType="Float" x="0" y="52" width="108" height="20" forecolor="#000000" uuid="c529ceb6-d64f-4131-bdcf-099344b76bac"/>
+					<textElement>
+						<font size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Cant.Comprada]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" positionType="Float" x="107" y="52" width="94" height="20" forecolor="#000000" uuid="58f34af3-f0ac-48c5-aef3-0520923a048b"/>
+					<textElement>
+						<font size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Codigo]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" positionType="Float" x="211" y="51" width="132" height="20" forecolor="#000000" uuid="b47ab706-840e-4f4a-90fb-b98ece22073f"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Artículo]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" positionType="Float" x="384" y="52" width="93" height="20" forecolor="#000000" uuid="da122fa0-03ee-482e-a0f0-1ed188108734"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Precio Compra]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" positionType="Float" x="493" y="51" width="60" height="20" forecolor="#000000" uuid="014d0f1a-0f9d-4465-a3ae-5060871edf84"/>
+					<textElement textAlignment="Right">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="Detail" positionType="Float" x="4" y="31" width="549" height="18" uuid="d3c8d098-76c6-43d1-8591-07b3e3205293"/>
+					<textElement>
+						<font size="14" isBold="true" pdfFontName="Times-Bold"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Proveedor :  "+ $F{TCompras_Proveedor}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="0" y="71" width="553" height="1" uuid="3c931d13-8038-4948-a23c-13d018268331"/>
+				</line>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="26">
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="Float" x="236" y="0" width="317" height="20" forecolor="#000000" uuid="a84938e4-c43c-4aef-94c2-0f48ad545403"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times New Roman" size="16" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Total Factura : ¢" +$F{TCompras_Total}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="TCompras_Total">
+		<groupExpression><![CDATA[$F{TCompras_Total}]]></groupExpression>
+		<groupHeader>
+			<band height="27">
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="Detail" positionType="Float" x="17" y="0" width="95" height="18" uuid="998f8f48-0c8a-4006-b608-49d4723ba239"/>
+					<textElement>
+						<font size="12" isBold="false" pdfFontName="Times-Bold"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{TCompras_AgregarCantidad}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="Detail" positionType="Float" x="107" y="0" width="94" height="18" uuid="7a2cc404-b9ab-493f-b55c-317dc7593859"/>
+					<textElement>
+						<font size="14" isBold="false" pdfFontName="Times-Bold"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{TCompras_CodigoProducto}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="Detail" positionType="Float" x="211" y="0" width="200" height="18" uuid="34ef2028-6f08-4301-b519-84c0026f1955"/>
+					<textElement>
+						<font size="12" isBold="false" pdfFontName="Times-Bold"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{TCompras_NombreProducto}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="Detail" positionType="Float" x="384" y="0" width="93" height="18" uuid="1d19cfa5-0f68-4637-8f70-a198d1cc18b6"/>
+					<textElement textAlignment="Right">
+						<font size="14" isBold="false" pdfFontName="Times-Bold"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{TCompras_PrecioCompra}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="Detail" positionType="Float" x="493" y="0" width="60" height="18" uuid="205a1880-49ac-41ce-866c-eebd8e7e796f"/>
+					<textElement textAlignment="Right">
+						<font size="14" isBold="false" pdfFontName="Times-Bold"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{TCompras_SubTotal}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="132" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="31" y="10" width="524" height="93" uuid="6f8f1fbe-29c3-4758-b87b-c358f66263b1"/>
+				<textElement textAlignment="Center">
+					<font size="40" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Reporte Facturas de Compra]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="311" y="112" width="100" height="20" forecolor="#FFFFFF" uuid="fa1c6a2c-da11-4246-8186-7e5294b9ab34"/>
+				<textFieldExpression><![CDATA[$P{FECHA1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="438" y="112" width="100" height="20" forecolor="#FFFFFF" uuid="90775b18-0492-4fd2-9e63-99701c486d69"/>
+				<textFieldExpression><![CDATA[$P{FECHA2}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="6" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="38" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="bb31c12c-bf13-46a6-a154-1593c433171e"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="236" y="4" width="317" height="20" uuid="f438a9fd-5126-4e1b-b0da-e922a9edac13"/>
+				<textElement textAlignment="Right">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Total Facturas Buscadas : ¢" +$P{TOTAL}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="13" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="2" y="0" width="555" height="13" forecolor="#D0B48E" backcolor="#9DB1B8" uuid="2c415041-59e4-4f2e-99e5-d7a454092001"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="513" y="-1" width="40" height="13" forecolor="#FFFFFF" uuid="026a6260-eb28-4fde-8dfd-c2c16e5f42f5"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="433" y="-1" width="80" height="13" forecolor="#FFFFFF" uuid="d5c05b4a-2ef3-414b-804c-302f6454e207"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" x="2" y="0" width="197" height="13" forecolor="#FFFFFF" uuid="2243d646-1bdf-43b7-a98a-9ad49702b04e"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
