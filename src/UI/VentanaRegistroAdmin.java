@@ -12,6 +12,8 @@ import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -39,6 +41,21 @@ public class VentanaRegistroAdmin extends javax.swing.JFrame {
             if(cboRol.getSelectedItem().equals("DEPENDIENTE")){
                 jpnOpcionesUsuario.setVisible(true);
             }
+        }
+    }
+    public void validarUsuario(){
+        try {
+            usuario=clpdv.buscarPorId(TxtId.getText());
+        } catch (PDVException ex) {
+            Logger.getLogger(VentanaRegistroAdmin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if(usuario==null){
+            
+        }else{
+            
+           JOptionPane.showMessageDialog(null,"El usuario " + TxtId.getText() + " Ya existe, Favor verificar!!!","Atención!!!",JOptionPane.ERROR_MESSAGE);
+           TxtId.setText("");
+           TxtId.grabFocus(); 
         }
     }
    
@@ -97,6 +114,11 @@ public class VentanaRegistroAdmin extends javax.swing.JFrame {
 
         TxtId.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         TxtId.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        TxtId.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                TxtIdFocusLost(evt);
+            }
+        });
         TxtId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TxtIdActionPerformed(evt);
@@ -449,7 +471,7 @@ public class VentanaRegistroAdmin extends javax.swing.JFrame {
 
         }
         
-        if (TxtId.getText().length()>=9) {
+        if (TxtId.getText().length() >=9) {
             getToolkit().beep();
             evt.consume();
         }
@@ -744,6 +766,24 @@ public class VentanaRegistroAdmin extends javax.swing.JFrame {
     private void chkFacturacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkFacturacionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_chkFacturacionActionPerformed
+
+    private void TxtIdFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TxtIdFocusLost
+        // TODO add your handling code here:
+         if(TxtId.getText().equals("")){
+            
+        }else{
+            if(TxtId.getText().length()<9){
+                    JOptionPane.showMessageDialog(null,"La Cédula debe tener 9 dígitos 0-0000-0000" ,"Atención", JOptionPane.ERROR_MESSAGE);
+                    TxtId.setText("");
+                    TxtId.grabFocus();
+             }else{
+                if(TxtId.getText().length()==9){
+                    validarUsuario();
+                }
+            }
+        }
+        
+    }//GEN-LAST:event_TxtIdFocusLost
 
     /**
      * @param args the command line arguments

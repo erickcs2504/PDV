@@ -41,9 +41,12 @@ public class VClientes extends javax.swing.JFrame {
         buscarCodCliente();
         txtCedula.grabFocus();
     }
-    public void validarExisteCliente() throws PDVException{
+    public Clientes validarExisteCliente() throws PDVException{
+        
+        
         unCliente=clpdv.buscarPorCedula(txtCedula.getText());
         if(unCliente==null){
+        
             //El cliente no existe por lo que puede ser agregado al catalogo de clientes
         }else{
             if(unCliente.getCedula().equals(txtCedula.getText())){
@@ -52,6 +55,7 @@ public class VClientes extends javax.swing.JFrame {
                 txtCedula.grabFocus();
             }
         }
+        return unCliente;
     }
     
 
@@ -110,6 +114,14 @@ public class VClientes extends javax.swing.JFrame {
         jLabel2.setText("Cedula:");
 
         txtCedula.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        txtCedula.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtCedulaFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtCedulaFocusLost(evt);
+            }
+        });
         txtCedula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCedulaActionPerformed(evt);
@@ -118,6 +130,9 @@ public class VClientes extends javax.swing.JFrame {
         txtCedula.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtCedulaKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCedulaKeyReleased(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtCedulaKeyTyped(evt);
@@ -128,6 +143,11 @@ public class VClientes extends javax.swing.JFrame {
         jLabel3.setText("Nombre:");
 
         txtNombre.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        txtNombre.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtNombreFocusGained(evt);
+            }
+        });
         txtNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNombreActionPerformed(evt);
@@ -431,8 +451,10 @@ public class VClientes extends javax.swing.JFrame {
          }
         
              if(usuario.getRol().equals("DEPENDIENTE")){
-                
+               
                     dispose();
+                
+                    
             try {
                 unUsuario=clpdv.buscarPorCed(txtUsuario.getText());
             } catch (PDVException ex) {
@@ -487,7 +509,10 @@ public class VClientes extends javax.swing.JFrame {
                     }
              }else{
                  if(usuario.getRol().equals("ADMINISTRADOR")){
-                     dispose();
+                     
+                         dispose();
+                     
+                     
                      VMenuAdmin menu = new VMenuAdmin();
                      menu.setVisible(true);
                      VMenuAdmin.txtUsuario.setText(txtUsuario.getText());
@@ -583,13 +608,15 @@ public class VClientes extends javax.swing.JFrame {
 
     private void txtCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCedulaActionPerformed
         // TODO add your handling code here:
-        evt.setSource((char) KeyEvent.VK_CLEAR);
-        txtNombre.requestFocus();// al presionar enter mandas el cursor a jTextField2
-          try {
-              validarExisteCliente();
-          } catch (PDVException ex) {
-              Logger.getLogger(VClientes.class.getName()).log(Level.SEVERE, null, ex);
-          }
+        
+       
+          
+                 evt.setSource((char) KeyEvent.VK_CLEAR);
+                 txtNombre.requestFocus();// al presionar enter mandas el cursor a jTextField2 
+            
+        
+          
+       
     }//GEN-LAST:event_txtCedulaActionPerformed
 
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
@@ -675,13 +702,21 @@ public class VClientes extends javax.swing.JFrame {
 
     private void txtCedulaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaKeyPressed
         // TODO add your handling code here:
-        if(KeyEvent.getKeyText(evt.getKeyCode()).equals("Escape")){
+       
+        
+            if(KeyEvent.getKeyText(evt.getKeyCode()).equals("Escape")){
             cerrar();
-         }
+         
+        
+        }
+        
+        
     }//GEN-LAST:event_txtCedulaKeyPressed
 
     private void txtNombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyPressed
         // TODO add your handling code here:
+       
+          
         if(KeyEvent.getKeyText(evt.getKeyCode()).equals("Escape")){
             cerrar();
          }
@@ -728,6 +763,50 @@ public class VClientes extends javax.swing.JFrame {
             cerrar();
          }
     }//GEN-LAST:event_txtReferidoPorKeyPressed
+
+    private void txtCedulaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaKeyReleased
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_txtCedulaKeyReleased
+
+    private void txtNombreFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreFocusGained
+        // TODO add your handling code here:
+        
+        
+           
+    }//GEN-LAST:event_txtNombreFocusGained
+
+    private void txtCedulaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCedulaFocusLost
+          
+        
+        if(txtCedula.getText().equals("")){
+            
+        }else{
+            if(txtCedula.getText().length()<9){
+                    JOptionPane.showMessageDialog(null,"La Cédula debe tener 9 dígitos 0-0000-0000" ,"Atención", JOptionPane.ERROR_MESSAGE);
+                    txtCedula.setText("");
+                    txtCedula.grabFocus();
+             }else{
+                if(txtCedula.getText().length()==9){
+                    try {
+                        validarExisteCliente();
+                    } catch (PDVException ex) {
+                        Logger.getLogger(VClientes.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        }
+        
+       
+       
+    }//GEN-LAST:event_txtCedulaFocusLost
+
+    private void txtCedulaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCedulaFocusGained
+        // TODO add your handling code here:
+        
+        
+        
+    }//GEN-LAST:event_txtCedulaFocusGained
 
     public void limpiar(){
         txtCedula.setText("");
